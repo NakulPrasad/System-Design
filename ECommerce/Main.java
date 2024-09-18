@@ -14,9 +14,11 @@ public class Main {
         System.out.println(getStatus());
 
         // notification
-        NotificationService notificationService = new NotificationService();
+        NotificationService notificationService = NotificationService.getInstance();
         notificationService.subscribe(customer);
-        notificationService.notify("BookReturn", "Godzilla returns");
+        notificationService.notifyObservers("BookReturn", "Godzilla returns");
+        Product product1 = new Product("Apple Pro", "Watch");
+        productService.productBack(product1);
     }
 
     public static String getStatus() {

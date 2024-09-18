@@ -2,20 +2,32 @@ package ECommerce;
 
 import java.util.*;
 
-class NotificationService {
-    private static List<Customer> observers = new ArrayList<>();
+class NotificationService implements ObervableInterface {
+    private static NotificationService instance;
+    private static List<Account> observers = new ArrayList<>();
 
-    public void subscribe(Customer c) {
+    public static NotificationService getInstance() {
+        if (instance == null) {
+            instance = new NotificationService();
+        }
+        return instance;
+    }
+
+    @Override
+    public void subscribe(Account c) {
         observers.add(c);
     }
 
-    public void unsubscribe(Customer c) {
+    @Override
+    public void unsubscribe(Account c) {
         observers.remove(c);
     }
 
-    public void notify(String Event, String message) {
-        for (Customer c : observers) {
+    @Override
+    public void notifyObservers(String Event, String message) {
+        for (Account c : observers) {
             c.update(Event, message);
         }
     }
+
 }
